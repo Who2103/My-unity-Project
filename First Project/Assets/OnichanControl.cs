@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class OnichanControl : MonoBehaviour
 {float rotationspeed = 120;
-    float movementspeed = 0.1f;
+    float movementspeed = 3f;
     float gravity = 9.8f;
     float velocity = 0;
+    float jump = 10f;
+    Animator myAnimation;
+
     // Start is called before the first frame update
     void Start()
     {
         velocity -= gravity * Time.deltaTime;
+        myAnimation = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -18,15 +22,26 @@ public class OnichanControl : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            transform.position += Vector3.up * Time.deltaTime;
+            transform.position += Vector3.up * jump* Time.deltaTime;
+            
+            myAnimation.SetBool("isJumping", true);
+            
         }
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            transform.position += transform.forward *movementspeed;
+            myAnimation.SetBool("isWalking", false);
+        }
+            if (Input.GetKey(KeyCode.UpArrow))
+        {
+            myAnimation.SetBool("isWalking", true);
+            myAnimation.SetBool("isJumping", false);
+            transform.position = transform.position  +  transform.forward *movementspeed * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            transform.position += Vector3.back * Time.deltaTime;
+            transform.position -=  transform.forward * movementspeed * Time.deltaTime;
+            myAnimation.SetBool("isWalking", true);
+            myAnimation.SetBool("isJumping", false);
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {

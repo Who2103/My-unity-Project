@@ -13,7 +13,7 @@ public class cubecontrol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.Y))
         {
 transform.position += Vector3.back*Time.deltaTime;
         }

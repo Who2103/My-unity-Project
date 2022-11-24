@@ -8,11 +8,17 @@ public class OnichanControl : MonoBehaviour
     float gravity = 9.8f;
     float velocity = 0;
     float jump = 10f;
+    float jumpAnimDuration = 1f;
     Animator myAnimation;
+    float jumpTimer = 0f;
 
+    Rigidbody theBall;
     // Start is called before the first frame update
     void Start()
     {
+        ballphysic theBallScript = FindObjectOfType<ballphysic>();
+
+        theBall = theBallScript.gameObject.GetComponent<Rigidbody>();
         velocity -= gravity * Time.deltaTime;
         myAnimation = GetComponent<Animator>();
     }
@@ -20,29 +26,38 @@ public class OnichanControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            transform.position += Vector3.up * jump* Time.deltaTime;
-            
+            jumpTimer = jumpAnimDuration;
+        }
+
+        if(jumpTimer > 0)
+        {
             myAnimation.SetBool("isJumping", true);
-            
+            transform.position += Vector3.up * jump * Time.deltaTime;
+            jumpTimer -= Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.LeftShift))
+        else
         {
-            myAnimation.SetBool("isWalking", false);
+            myAnimation.SetBool("isJumping", false);
         }
-            if (Input.GetKey(KeyCode.UpArrow))
+
+       
+        if (Input.GetKey(KeyCode.UpArrow))
         {
             myAnimation.SetBool("isWalking", true);
-            myAnimation.SetBool("isJumping", false);
             transform.position = transform.position  +  transform.forward *movementspeed * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.DownArrow))
+        else if (Input.GetKey(KeyCode.DownArrow))
         {
             transform.position -=  transform.forward * movementspeed * Time.deltaTime;
             myAnimation.SetBool("isWalking", true);
-            myAnimation.SetBool("isJumping", false);
         }
+        else
+        {
+            myAnimation.SetBool("isWalking", false);
+        }
+
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             transform.Rotate(new Vector3(0, 1, 0), -rotationspeed * Time.deltaTime);
@@ -53,7 +68,14 @@ public class OnichanControl : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.C))
             transform.position += Vector3.down * Time.deltaTime;
-        
-      
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            theBall.AddExplosionForce(1500, transform.position +  new Vector3(0, -2,0 ), 3);
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            theBall.AddExplosionForce(500, transform.position, 3);
+        }
     }
 }

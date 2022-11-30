@@ -4,20 +4,29 @@ using UnityEngine;
 
 public class cubecontrol : MonoBehaviour
 {
+    
+ 
+    public float delta = 3f;
+    public float speed = 2.0f;
+    private Vector3 startPos;
+
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
+        startPos = transform.position;
+    
+}
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Y))
-        {
-transform.position += Vector3.back*Time.deltaTime;
-        }
-        
-        
+        Vector3 v = startPos;
+        v.x += delta * Mathf.Sin(Time.time * speed);
+        transform.position = v;
     }
+
+
+
+
 }
+

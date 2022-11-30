@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OnichanControl : MonoBehaviour
 {float rotationspeed = 120;
-    float movementspeed = 3f;
+    float movementspeed = 6f;
     float gravity = 9.8f;
     float velocity = 0;
     float jump = 10f;
@@ -71,11 +71,11 @@ public class OnichanControl : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            theBall.AddExplosionForce(1500, transform.position +  new Vector3(0, -2,0 ), 3);
+            theBall.AddExplosionForce(1250, transform.position +  new Vector3(0, -2,-1), 4);
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
-            theBall.AddExplosionForce(500, transform.position, 3);
+            theBall.AddExplosionForce(1000, transform.position, 3);
         }
     }
 }

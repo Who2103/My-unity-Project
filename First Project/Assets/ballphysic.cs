@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,10 +14,15 @@ public class ballphysic : MonoBehaviour
         ourRigidBody = GetComponent<Rigidbody>();
     }
 
+    internal void resetPosition()
+    {
+        transform.position = new Vector3(-2, 1, 1);
+        ourRigidBody.velocity = Vector3.zero;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
-            ourRigidBody.AddExplosionForce(1000, transform.position + Vector3.down + Vector3.back, 3);
+        
     }
 }

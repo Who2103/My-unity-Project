@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class OnichanControl : MonoBehaviour
-{float rotationspeed = 120;
+{float rotationspeed = 180;
     float movementspeed = 6f;
     float gravity = 9.8f;
     float velocity = 0;

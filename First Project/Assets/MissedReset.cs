@@ -2,23 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Reset : MonoBehaviour
+public class MissedReset : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
+        ballphysic theBallMissed = other.gameObject.GetComponent<ballphysic>();
 
-        ballphysic theBallIntheGoal = other.gameObject.GetComponent<ballphysic>();
-
-        if (theBallIntheGoal)
+        if (theBallMissed)
         {
-            print("Goal");
-            theBallIntheGoal.resetPosition();
-
+            print("Missed");
+            theBallMissed.resetPosition();
         }
-
-
-   
-
     }
     // Start is called before the first frame update
     void Start()
